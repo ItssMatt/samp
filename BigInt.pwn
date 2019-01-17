@@ -75,7 +75,7 @@ stock GetBigInt(&var_store, &var_add)
 	else format(str, 30, "%d", var_add);
 	return str;
 }
-
+ 
 stock FormatBigInt(get[])
 {
 	new str[40];
