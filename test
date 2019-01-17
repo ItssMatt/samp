@@ -1,0 +1,31 @@
+new StoreMoney[MAX_PLAYERS], MoneyMoney[MAX_PLAYERS]; 
+
+CMD:addmoney(playerid, params[])
+{
+	new mon;
+	if(sscanf(params, "d", mon)) return SCM(playerid, -1, "/addmoney <Money>");
+	AddBigInt(StoreMoney[playerid], MoneyMoney[playerid], mon);
+	new str[256];
+	format(str, 256, GetBigInt(StoreMoney[playerid], MoneyMoney[playerid]));
+	SCM(playerid, -1, str);
+	return 1;
+}
+
+CMD:delmoney(playerid, params[])
+{
+	new mon;
+	if(sscanf(params, "d", mon)) return SCM(playerid, -1, "/delmoney <Money>");
+	SubstractBigInt(StoreMoney[playerid], MoneyMoney[playerid], mon);
+	new str[256];
+	format(str, 256, GetBigInt(StoreMoney[playerid], MoneyMoney[playerid]));
+	SCM(playerid, -1, str);
+	return 1;
+}
+
+CMD:getmoney(playerid, params[])
+{
+	new str[256];
+	format(str, 256, FormatBigInt(GetBigInt(StoreMoney[playerid], MoneyMoney[playerid])));
+	SCM(playerid, -1, str);
+	return 1;
+}
