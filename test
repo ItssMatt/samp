@@ -36,21 +36,10 @@ CMD:deposit(playerid, params[])
 	new amount;
 	if(sscanf(params, "d", amount)) return SCM(playerid, COLOR_GENANNOUNCE, "Syntax: {FFFFFF}/deposit <Amount>");
 	if(amount >= 1000000000 || amount < 1) return SS(playerid, COLOR_BEIGE, "Suma introdusa este invalida. (1-999,999,999)", "The amount you entered is invalid. (1-999,999,999)");
-	if(amount > PlayerInfo[playerid][pMoney])
-	{
-		if(PlayerInfo[playerid][pMStore] > 0) {
-			SubstractBigInt(PlayerInfo[playerid][pMStore], PlayerInfo[playerid][pMoney], amount);
-			AddBigInt(PlayerInfo[playerid][pBStore], PlayerInfo[playerid][pBMoney], amount);
-			Update(playerid, pMoneyx);
-			SCMF(playerid, COLOR_GREEN, (PlayerInfo[playerid][pLanguage] == 1) ? ("Ai depus suma de $%s in contul bancar.") : ("You have deposited $%s money in your bank account."), FormatNumber(amount));
-		}
-		else return SS(playerid, COLOR_GREY, "Nu poti depune aceasta suma deoarece nu ai atatia bani.", "You cannot deposit this amount because you don't have those money.");
-	}
-	else {
-		SubstractBigInt(PlayerInfo[playerid][pMStore], PlayerInfo[playerid][pMoney], amount);
-		AddBigInt(PlayerInfo[playerid][pBStore], PlayerInfo[playerid][pBMoney], amount);
-		Update(playerid, pMoneyx);
-		SCMF(playerid, COLOR_GREEN, (PlayerInfo[playerid][pLanguage] == 1) ? ("Ai depus suma de $%s in contul bancar.") : ("You have deposited $%s money in your bank account."), FormatNumber(amount));
-	}
+	if(!SubstractBigInt(PlayerInfo[playerid][pMStore], PlayerInfo[playerid][pMoney], amount)) 
+		return SS(playerid, COLOR_GREY, "Nu poti depune aceasta suma deoarece nu ai atatia bani.", "You cannot deposit this amount because you don't have those money."); 
+	AddBigInt(PlayerInfo[playerid][pBStore], PlayerInfo[playerid][pBMoney], amount);
+	Update(playerid, pMoneyx);
+	SCMF(playerid, COLOR_GREEN, (PlayerInfo[playerid][pLanguage] == 1) ? ("Ai depus suma de $%s in contul bancar.") : ("You have deposited $%s money in your bank account."), FormatNumber(amount));
 	return 1;
 }
