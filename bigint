@@ -3,7 +3,7 @@
 	- Nu adaugati mai mult de 2,000,000,000 deodata.
 
 	AddBigInt(=variabila care stocheaza numarul miliardelor=, =variabila care stocheaza restul cifrelor=, =suma de adaugat=);			= adaugi (returneaza 1 daca s-a efectuat vreo operatie de impartire a miliardelor, altfel 0)
-	SubstractBigInt(=variabila care stocheaza numarul miliardelor=, =variabila care stocheaza restul cifrelor=, =suma de scazut=);		= scazi	 (returneaza 1 daca s-a efectuat vreo operatie de impartire a miliardelor, altfel 0)
+	SubstractBigInt(=variabila care stocheaza numarul miliardelor=, =variabila care stocheaza restul cifrelor=, =suma de scazut=);		= scazi	 (returneaza 0 daca scaderea este < 0, altfel 1)
 	GetBigInt(=variabila care stocheaza numarul miliardelor=, =variabila care stocheaza restul cifrelor=); 								= iei suma (neformatata, returneaza STRING)
 	FormatBigInt(=variabila care stocheaza numarul miliardelor=, =variabila care stocheaza restul cifrelor=);							= iei suma   (formatata, returneaza STRING)
 
@@ -14,12 +14,24 @@
 	Valoare maxima: 2,147,483,647,999,999,999.
 
 */
+/*
+stock AddSQLBigInt(sqlid, amount)
+{
+	new str[256];
+	mysql_format(SQL, str, 256, "SELECT `MStore`,`Money` FROM `accounts` WHERE `ID`=%d LIMIT 1", sqlid);
 
-
-
-
-
-
+	inline localfunction()
+	{
+		new var_store = cache_get_field_content_int(0, "MStore"), var_add = cache_get_field_content_int(0, "Money");
+		AddBigInt(var_store, var_add, amount);
+		mysql_format(SQL, str, 256, "UPDATE `accounts` SET `MStore`=%d, `Money`=%d WHERE `ID`=%d", var_store, var_add, sqlid);
+		mysql_pquery(SQL, str);
+		return 1;
+	}
+	mysql_tquery_inline(SQL, str, using inline localfunction, "");
+	return 1;
+}
+*/
 stock AddBigInt(&var_store, &var_add, amount)
 {
 	var_add += amount;
@@ -37,6 +49,7 @@ stock AddBigInt(&var_store, &var_add, amount)
 
 stock SubstractBigInt(&var_store, &var_add, amount)
 {
+	if(amount > var_add && var_store == 0) return 0;
 	if(amount >= 1000000000 && var_store > 0)
 	{
 		var_store--;
@@ -47,9 +60,8 @@ stock SubstractBigInt(&var_store, &var_add, amount)
 		new copy = var_add * -1;
 		var_store--;
 		var_add = 1000000000 - copy;
-		return 1;
 	}
-	return 0;
+	return 1;
 }
 
 stock GetBigInt(&var_store, &var_add)
