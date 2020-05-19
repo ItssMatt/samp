@@ -6,7 +6,7 @@
 	AddBigInt(=variabila care stocheaza numarul miliardelor=, =variabila care stocheaza restul cifrelor=, =suma de adaugat=);			= adaugi (returneaza 1 daca s-a efectuat vreo operatie de impartire a miliardelor, altfel 0)
 	SubstractBigInt(=variabila care stocheaza numarul miliardelor=, =variabila care stocheaza restul cifrelor=, =suma de scazut=);		= scazi	 (returneaza 0 daca scaderea este < 0, altfel 1)
 	GetBigInt(=variabila care stocheaza numarul miliardelor=, =variabila care stocheaza restul cifrelor=); 								= iei suma (neformatata, returneaza STRING)
-	FormatBigInt(=variabila care stocheaza numarul miliardelor=, =variabila care stocheaza restul cifrelor=);							= iei suma   (formatata, returneaza STRING)
+	FormatBigInt(GetBigInt(...));							= iei suma   (formatata, returneaza STRING)
 
 	CompareBigInt(var_store1, var_add1, var_store2, var_add2); 																			= compari 2 bigint-uri
 	AddBigIntToBigInt(&var_store1, &var_add1, var_store2, var_add2); 																	= aduni 2 bigint-uri
