@@ -2,6 +2,7 @@
 	BigInt by Matt
 	- Nu adaugati mai mult de 999,999,999 deodata. (AddBigInt)
 	- Pentru a adauga mai mult de 999,999,999 deodata, folositi AddBigIntToBigInt!
+	- Este foarte important sa verificati inainte sa scadeti din bigint, altfel ajunge pe minus si o sa aveti probleme!
 
 	AddBigInt(=variabila care stocheaza numarul miliardelor=, =variabila care stocheaza restul cifrelor=, =suma de adaugat=);			= adaugi (returneaza 1 daca s-a efectuat vreo operatie de impartire a miliardelor, altfel 0)
 	SubstractBigInt(=variabila care stocheaza numarul miliardelor=, =variabila care stocheaza restul cifrelor=, =suma de scazut=);		= scazi	 (returneaza 0 daca scaderea este < 0, altfel 1)
