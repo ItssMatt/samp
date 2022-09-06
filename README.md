@@ -2,7 +2,7 @@
 
 This is a library written in Pawn for the San Andreas Multiplayer Mod that allows the scripter to create a bigger integer.
 
-# How the BigInt works?
+# How it works?
 
 We have 2 variables, prefix and suffix.
 The prefix can be the maximum value of an integer (2,147,483,647) and the suffix can be maximum 999,999,999.
